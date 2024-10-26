@@ -6,15 +6,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
 public class LambdafunctionsApplication {
 
   public static void main(String[] args) {
-    // SpringApplication.run(LambdafunctionsApplication.class, args);
     evaluate01();
+    evaluate02();
   }
 
   private static void evaluate01() {
@@ -50,4 +46,17 @@ public class LambdafunctionsApplication {
     return number * 2;
   }
 
+  private static void evaluate02() {
+    List<Integer> values = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+    System.out.println(totalValues(values, e -> true)); // soma de todos os números
+    System.out.println(totalValues(values, e -> e % 2 == 0)); // soma dos números pares
+  }
+
+  private static int totalValues(List<Integer> numbers, Predicate<Integer> selector) {
+    return numbers
+        .stream()
+        .filter(selector)
+        .reduce(0, Math::addExact);
+  }
 }
